@@ -4,7 +4,7 @@
     <springProperty scope="context" name="LOG_FILE_NAME" source="logging.file"/>
     <springProperty scope="context" name="LOG_MAX_HISTORY" source="logging.file.max-history"/>
     <springProperty scope="context" name="LOG_MAX_SIZE" source="logging.file.max-size"/>
-	<property name="LOG_FILE_MAX_SIZE" value="${LOG_FILE:-${LOG_MAX_SIZE}}" />
+	<property name="LOG_FILE_MAX_SIZE" value="${LOG_FILE_MAX_SIZE:-${LOG_MAX_SIZE}}" />
    
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
