@@ -1,0 +1,39 @@
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+	<springProperty scope="context" name="LOG_LOCATION" source="logging.path"/>
+    <springProperty scope="context" name="LOG_FILE_NAME" source="logging.file"/>
+    <springProperty scope="context" name="LOG_MAX_HISTORY" source="logging.file.max-history"/>
+    <springProperty scope="context" name="LOG_MAX_SIZE" source="logging.file.max-size"/>
+	<property name="LOG_FILE_MAX_SIZE" value="${LOG_FILE:-${LOG_MAX_SIZE}}" />
+   
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+    
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    
+    	<encoder>
+	      <pattern>${FILE_LOG_PATTERN}</pattern>
+	      <charset>utf8</charset>
+	    </encoder>
+        
+        <file>${LOG_LOCATION}/${LOG_FILE_NAME}.log</file>
+        
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_LOCATION}/${LOG_FILE_NAME}-%d-log%i.log</fileNamePattern>
+            <maxHistory>${LOG_MAX_HISTORY}</maxHistory>
+            <maxFileSize>${LOG_FILE_MAX_SIZE}</maxFileSize>
+        </rollingPolicy>
+    </appender>
+    
+    
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE" />
+	</root>
+    
+    
+</configuration>
